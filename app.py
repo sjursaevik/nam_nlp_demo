@@ -65,7 +65,7 @@ nouns=str(nouns)
 nouns=nouns.replace("'", "")
 nouns=nouns.strip("[").strip(']')
 
-wordcloud= WordCloud(collocations=False, min_word_length=3, width=800, height=800, background_color='white').generate(str(nouns))
+wordcloud= WordCloud(collocations=False, min_word_length=3, scale=4, background_color='white', ).generate(str(nouns))
 fig, ax = plt.subplots(figsize = (12, 8))
 ax.imshow(wordcloud)
 plt.axis("off")
