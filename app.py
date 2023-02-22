@@ -58,7 +58,7 @@ nouns=nouns.strip("[").strip(']')
 st.write('**Entiter i kontekst med labels**')      
 st.dataframe(df, use_container_width=True)
 st.write('**Hele teksten med labels**')
-sst.visualize_ner(doc, labels=nlp.get_pipe("ner").labels, key='s1', show_table=False)
+sst.visualize_ner(doc, labels=nlp.get_pipe("ner").labels, key='s1', show_table=False, title="")
 st.write('''**Ordsky for teksten**''') 
 
 wordcloud= WordCloud(collocations=False, min_word_length=3, width=800, height=800, background_color='white').generate(str(nouns))
