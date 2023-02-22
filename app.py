@@ -37,6 +37,19 @@ df=pd.DataFrame(cc, columns=['Label', 'Entity', 'Context']).sort_values('Label')
 df = df.astype(str)
 df=df.style
 
+
+
+
+
+
+
+
+st.write('**Entiter i kontekst med labels**')      
+st.dataframe(df, use_container_width=True)
+st.write('**Hele teksten med labels**')
+sst.visualize_ner(doc, labels=nlp.get_pipe("ner").labels, key='s1', show_table=False, title="")
+st.write('''**Ordsky for teksten**''') 
+labels=st.multiselect('Select labels for wordcloud:', options=nlp.pipe_labels['ner'],  default=nlp.pipe_labels['ner'])
 nouns=[]
 #print(nlp2.pipe_names)
 for tok in doc:
@@ -45,21 +58,12 @@ for tok in doc:
     word=tok.text
     word=word.replace("'", "")
     #print (word)
-    if dep==False:
+    if dep==False and tok.ent_type_ in labels:
         nouns.append(word)
-
-
 
 nouns=str(nouns)
 nouns=nouns.replace("'", "")
 nouns=nouns.strip("[").strip(']')
-
-
-st.write('**Entiter i kontekst med labels**')      
-st.dataframe(df, use_container_width=True)
-st.write('**Hele teksten med labels**')
-sst.visualize_ner(doc, labels=nlp.get_pipe("ner").labels, key='s1', show_table=False, title="")
-st.write('''**Ordsky for teksten**''') 
 
 wordcloud= WordCloud(collocations=False, min_word_length=3, width=800, height=800, background_color='white').generate(str(nouns))
 fig, ax = plt.subplots(figsize = (12, 8))
