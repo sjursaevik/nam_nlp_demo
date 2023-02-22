@@ -7,7 +7,7 @@ from wordcloud import WordCloud
 
 
 st.set_page_config(layout='wide')
-nlp=spacy.load('./model-last')
+nlp=spacy.load(r'./nlp_combine')
 
 def concordance(doc, size):
     conc=[]
