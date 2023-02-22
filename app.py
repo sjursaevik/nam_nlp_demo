@@ -48,23 +48,19 @@ for tok in doc:
     if dep==False:
         nouns.append(word)
 
-#print(type(nouns), nouns)
-#nouns=sorted(nouns)
-#print(type(nouns.sort()), nouns.sort())
+
 
 nouns=str(nouns)
 nouns=nouns.replace("'", "")
 nouns=nouns.strip("[").strip(']')
-#print(nouns)
-st.write('**Entiter i kontekst med labels, beste modell**')      
-st.dataframe(df2, use_container_width=True)
-st.write('**Entiter i kontekst med labels, sist trente modell**')      
+
+
+st.write('**Entiter i kontekst med labels**')      
 st.dataframe(df, use_container_width=True)
-st.write('**Hele teksten med labels, sist trente modell**')
+st.write('**Hele teksten med labels**')
 sst.visualize_ner(doc, labels=nlp.get_pipe("ner").labels, key='s1', show_table=False)
-st.write('**Hele teksten med labels, beste modell**')
-sst.visualize_ner(doc2, labels=nlp2.get_pipe("ner").labels, key='s2', show_table=False)
 st.write('''**Ordsky for teksten**''') 
+
 wordcloud= WordCloud(collocations=False, min_word_length=3, width=800, height=800, background_color='white').generate(str(nouns))
 fig, ax = plt.subplots(figsize = (12, 8))
 ax.imshow(wordcloud)
