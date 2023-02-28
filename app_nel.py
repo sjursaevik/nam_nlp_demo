@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 import spacyfishing
 
-@st.cache
+@st.cache_resource
 def load_model():
     return spacy.load(r'./model-nel')
     
