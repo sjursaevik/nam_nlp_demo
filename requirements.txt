@@ -4,3 +4,4 @@ spacy_streamlit
 pandas
 matplotlib
 wordcloud
+spacyfishing
