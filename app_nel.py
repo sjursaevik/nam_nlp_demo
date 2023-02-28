@@ -7,22 +7,10 @@ from wordcloud import WordCloud
 import spacyfishing
 
 st.set_page_config(layout='wide')
+col1, col2, col3= st.columns(3)
+nlp=spacy.load(r'./model-nel')
 
-nlp=spacy.load(r'./nlp_combine')
 
-def concordance(doc, size):
-    conc=[]
-    for ent in doc.ents:
-        try:
-            indexb=ent.start_char - size
-        except: 
-            indexb=0
-        try:
-            indexe=ent.end_char + size
-        except: 
-            indexe=len(doc.text)
-        conc.append([ent.label_, ent, doc.text[(indexb):(indexe)]])
-    return conc
 
 with col1: 
     text = st.text_area('**sett in tekst her:**', value='''Det solfylte sommerbildet med brudefølget i båtene, stavkirken på odden og vestlands- naturen med fjord og fjell er et typisk uttrykk for nasjonalromantikkens opplevelse av norsk natur og folkeliv. Kunstnerne spilte en vesentlig rolle når det gjaldt å definere en nasjonal egenart etter at Norge hadde fått sin grunnlov i 1814. Dette motivet, som så sterkt uttrykker 1800-tallets skjønnhetsidealer, har vært dyrket som et ”ikon” av generasjoner av nordmenn. Maleriet har vært overført til teaterscenen både som levende tablå og ballett, og motivet er blitt ledsaget av dikt og musikk.
@@ -32,38 +20,18 @@ with col1:
                         #Landskapsmaler Hans Gude, som var drøye ti år yngre enn Tidemand, presenterer her som 23-åring en storslagen skildring av norsk natur. Selv om det ikke dreier seg om en direkte gjengivelse av et bestemt landskap, er komposisjonen satt sammen av nøyaktige naturobservasjoner fra forskjellige steder i hjemlandet. Tidemand og Gude har utført flere malerier sammen, der alle motivene viser folk som er ute i båt.''', max_chars=1000000)
     doc=nlp(text)
 
-    cc=concordance(doc, 50)
-    df=pd.DataFrame(cc, columns=['Label', 'Entity', 'Context']).sort_values('Label')
-    df = df.astype(str)
-    df=df.style
-    st.write('**Entiteter i kontekst med labels**')      
-    st.dataframe(df, use_container_width=True)
-
 with col2:
 
-    st.write('**Hele teksten med labels**')
-    sst.visualize_ner(doc, labels=nlp.get_pipe("ner").labels, key='s1', show_table=False, title="")
+    st.write('**Her er ting og tang vi har funnet i teksten**')
+    st.write('*Hvis vi har funnet koblinger til kulturNAV eller Wikidata, kan du trykke på entitetsnavnet for å komme til den aktuelle posten*')
+    
+    for ent in doc.ents:
+        if ent.ent_id_:
+            st.markdown(f"[{ent.text}](https://kulturnav.org/{ent.ent_id_})")
+        elif ent.kb_id_:
+            st.markdown(f"[{ent.text}](https://www.wikidata.org/entity/{ent.kb_id_})")
+        else:
+            pass
 
 with col3: 
-    st.write('''**Ordsky for teksten**''') 
-    labels=st.multiselect('Select labels for wordcloud:', options=nlp.pipe_labels['ner'],  default=nlp.pipe_labels['ner'])
-    nouns=[]
-    #print(nlp2.pipe_names)
-    for tok in doc:
-        dep=tok.is_stop
-        #print(tok, dep)
-        word=tok.text
-        word=word.replace("'", "")
-        #print (word)
-        if dep==False and tok.ent_type_ in labels:
-            nouns.append(word)
-
-    nouns=str(nouns)
-    nouns=nouns.replace("'", "")
-    nouns=nouns.strip("[").strip(']')
-
-    wordcloud= WordCloud(collocations=False, min_word_length=3, scale=4, background_color='white', ).generate(str(nouns))
-    fig, ax = plt.subplots(figsize = (12, 8))
-    ax.imshow(wordcloud)
-    plt.axis("off")
-    st.pyplot(fig)
+    sst.visualize_ner(doc, labels=nlp.get_pipe("ner").labels, key='s1', show_table=False, title="")
