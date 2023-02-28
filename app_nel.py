@@ -6,9 +6,14 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 import spacyfishing
 
+@st.cache
+def load_model():
+    return spacy.load(r'./model-nel')
+    
+
 st.set_page_config(layout='wide')
 col1, col2, col3= st.columns(3)
-nlp=spacy.load(r'./model-nel')
+nlp=load_model()
 
 
 
