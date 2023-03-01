@@ -34,11 +34,11 @@ with col2:
     st.write('*Hvis vi har funnet koblinger til kulturNAV eller Wikidata, kan du trykke på entitetsnavnet for å komme til den aktuelle posten*')
     
     for ent in doc.ents:
-        if ent.ent_id_!="" and ent.kb_id_!="":
-            st.markdown(f"[{ent.text}](https://kulturnav.org/{ent.ent_id_}) - [wikidata](https://www.wikidata.org/entity/{ent.kb_id_})")
-            #print(ent.text, ent.id_)
-        elif ent.kb_id_!="":
-            st.markdown(f"[{ent.text}](https://www.wikidata.org/entity/{ent.kb_id_})")
+        if ent.id_!="" and ent._.url_wikidata!="":
+            st.markdown(f"[{ent.text}](https://kulturnav.org/{ent.id_}), {ent.label_} - [wikidata]({ent._.url_wikidata})")
+            print(ent.text, ent.id_)
+        elif ent._.url_wikidata!="":
+            st.markdown(f"[{ent.text}]({ent._.url_wikidata}), {ent.label_}")
             #print(ent.text, ent.kb_id_)
         else:
             st.write(ent.text, ent.label_)
