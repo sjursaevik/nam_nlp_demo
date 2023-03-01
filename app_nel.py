@@ -41,7 +41,7 @@ with col2:
             st.markdown(f"[{ent.text}]({ent._.url_wikidata}), {ent.label_}")
             #print(ent.text, ent.kb_id_)
         else:
-            st.write(ent.text, ent.label_)
+            st.markdown(f"{ent.text}, {ent.label_}")
 
 with col3: 
     sst.visualize_ner(doc, labels=nlp.get_pipe("ner").labels, key='s1', show_table=False, title="")
