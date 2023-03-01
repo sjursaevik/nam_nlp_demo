@@ -38,8 +38,10 @@ with col1:
                 elif ent._.url_wikidata!="" and ent._.url_wikidata!=None:
                     st.markdown(f"[{ent.text}]({ent._.url_wikidata}), {ent.label_}")
                     #print(ent.text, ent.kb_id_)
+                elif ent.label_!=None:
+                    st.write(ent.text, ent.label_)
                 else:
-                    st.write(ent.text), st.write(ent.label_)
+                    pass
 
         with col3: 
             sst.visualize_ner(doc, labels=nlp.get_pipe("ner").labels, key='s1', show_table=False, title="")
