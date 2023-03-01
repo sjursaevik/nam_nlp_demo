@@ -35,7 +35,7 @@ with col1:
                 if ent.id_!="" and ent._.url_wikidata!="":
                     st.markdown(f"[{ent.text}](https://kulturnav.org/{ent.id_}), {ent.label_} - [wikidata]({ent._.url_wikidata})")
                     #print(1, ent.text, ent.id_)
-                elif ent._.url_wikidata!="":
+                elif ent._.url_wikidata!="" and len(ent._.url_wikidata)>1:
                     st.markdown(f"[{ent.text}]({ent._.url_wikidata}), {ent.label_}")
                     #print(ent.text, ent.kb_id_)
                 else:
