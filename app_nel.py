@@ -15,7 +15,7 @@ st.set_page_config(layout='wide')
 col1, col2, col3= st.columns(3)
 nlp=load_model()
 
-kb_url_template=f"https://www.wikidata.org/entity/{}"
+kb_url_template="https://www.wikidata.org/entity/{}/"
 viz_options={"kb_url_template": kb_url_template}
 with col1: 
     text = st.text_area('**sett in tekst her:**', value='''Det solfylte sommerbildet med brudefølget i båtene, stavkirken på odden og vestlands- naturen med fjord og fjell er et typisk uttrykk for nasjonalromantikkens opplevelse av norsk natur og folkeliv. Kunstnerne spilte en vesentlig rolle når det gjaldt å definere en nasjonal egenart etter at Norge hadde fått sin grunnlov i 1814. Dette motivet, som så sterkt uttrykker 1800-tallets skjønnhetsidealer, har vært dyrket som et ”ikon” av generasjoner av nordmenn. Maleriet har vært overført til teaterscenen både som levende tablå og ballett, og motivet er blitt ledsaget av dikt og musikk.
