@@ -43,5 +43,5 @@ with col1:
                 else:
                     pass
 
-        with col3: 
-            sst.visualize_ner(doc, labels=nlp.get_pipe("ner").labels, key='s1', show_table=False, title="")
+with col3: 
+    sst.visualize_ner(doc, labels=nlp.get_pipe("ner").labels, key='s1', show_table=False, title="")
