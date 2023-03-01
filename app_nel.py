@@ -15,8 +15,6 @@ st.set_page_config(layout='wide')
 col1, col2, col3= st.columns(3)
 nlp=load_model()
 
-kb_url_template="https://www.wikidata.org/entity/{}/"
-viz_options={"kb_url_template": kb_url_template}
 with col1: 
     text = st.text_area('**sett in tekst her:**', value='''Det solfylte sommerbildet med brudefølget i båtene, stavkirken på odden og vestlands- naturen med fjord og fjell er et typisk uttrykk for nasjonalromantikkens opplevelse av norsk natur og folkeliv. Kunstnerne spilte en vesentlig rolle når det gjaldt å definere en nasjonal egenart etter at Norge hadde fått sin grunnlov i 1814. Dette motivet, som så sterkt uttrykker 1800-tallets skjønnhetsidealer, har vært dyrket som et ”ikon” av generasjoner av nordmenn. Maleriet har vært overført til teaterscenen både som levende tablå og ballett, og motivet er blitt ledsaget av dikt og musikk.
 
@@ -41,7 +39,7 @@ with col1:
                     st.markdown(f"[{ent.text}]({ent._.url_wikidata}), {ent.label_}")
                     #print(ent.text, ent.kb_id_)
                 else:
-                    st.text({ent.text}, {ent.label_})
+                    st.text(ent.text, ent.label_)
 
         with col3: 
-            sst.visualize_ner(doc, labels=nlp.get_pipe("ner").labels, key='s1', show_table=False, title="", displacy_options=viz_options)
+            sst.visualize_ner(doc, labels=nlp.get_pipe("ner").labels, key='s1', show_table=False, title="")
